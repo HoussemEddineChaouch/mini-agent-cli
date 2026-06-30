@@ -7,7 +7,7 @@ const toolDescriptions = Object.entries(tools)
     Tool Name: ${name}
     Description: ${details.description}
     Parameters:
-    ${JSON.stringify(details.parameters, null, 2)}
+    ${JSON.stringify(details.parameters)}
     `;
   })
   .join("\n");
@@ -27,12 +27,12 @@ async function runAgent(userInput) {
       1. NEVER invent tool names.
       2. Use ONLY the tool names exactly as written.
       3. If a tool is needed, output ONLY:
-      TOOL:<toolName>:<argument>
+      TOOL {"name":"toolName","args":{...}}
 
       Examples:
-      TOOL:listDir:.
-      TOOL:listDir:src
-      TOOL:readFile:package.json
+      TOOL {"name":"listDir","args":{"path":"."}}
+      TOOL {"name":"readFile","args":{"path":"package.json"}}
+      TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}
 
       If no tool is needed, answer normally.
       `,
@@ -40,19 +40,22 @@ async function runAgent(userInput) {
     { role: "user", content: userInput },
   ];
 
+  console.log("[Agent Thinking...]");
   const response = await askLLM(messages);
 
-  if (response.startsWith("TOOL:")) {
-    const [, toolName, arg] = response.split(":");
+  if (response.startsWith("TOOL")) {
+    const jsonPart = response.replace("TOOL", "").trim();
+    const { name: toolName, args } = JSON.parse(jsonPart);
 
     const tool = tools[toolName];
 
     if (!tool) {
-      return `Unknown tool "${toolName}".
-      Available tools: ${Object.keys(tools).join(", ")}`;
+      return `Unknown tool "${toolName}"`;
     }
 
-    const result = tool.func(arg);
+    console.log(`[Choosing tool: ${toolName}]`);
+
+    const result = tool.func(...Object.values(args));
 
     const final = await askLLM([
       ...messages,

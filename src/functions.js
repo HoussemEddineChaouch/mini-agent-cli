@@ -5,7 +5,7 @@ function readFile(path) {
 }
 
 function writeFile(path, content) {
-  fs.writeFileSync(path, content);
+  fs.writeFileSync(path, content, "utf8");
   return "File written successfully";
 }
 
