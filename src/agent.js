@@ -27,12 +27,12 @@ async function runAgent(userInput) {
       1. NEVER invent tool names.
       2. Use ONLY the tool names exactly as written.
       3. If a tool is needed, output ONLY:
-      TOOL {"name":"toolName","args":{...}}
+      TOOL {"name":"toolName","args":{...}}-{"Reason":"...."}
 
       Examples:
-      TOOL {"name":"listDir","args":{"path":"."}}
-      TOOL {"name":"readFile","args":{"path":"package.json"}}
-      TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}
+      TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content."}
+      TOOL {"name":"readFile","args":{"path":"package.json"}}-{"Reason":"user wants file conetnt."}
+      TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user want to write in teh file."}
 
       If no tool is needed, answer normally.
       `,
@@ -44,8 +44,10 @@ async function runAgent(userInput) {
   const response = await askLLM(messages);
 
   if (response.startsWith("TOOL")) {
-    const jsonPart = response.replace("TOOL", "").trim();
-    const { name: toolName, args } = JSON.parse(jsonPart);
+    const jsonPart = response.replace("TOOL", "").trim().split("-");
+    [toolPart, reasonPart] = jsonPart;
+    const { name: toolName, args } = JSON.parse(toolPart);
+    const { Reason: reason } = JSON.parse(reasonPart);
 
     const tool = tools[toolName];
 
@@ -53,6 +55,7 @@ async function runAgent(userInput) {
       return `Unknown tool "${toolName}"`;
     }
 
+    console.log(`[Reason: ${reason}]`);
     console.log(`[Choosing tool: ${toolName}]`);
 
     const result = tool.func(...Object.values(args));
