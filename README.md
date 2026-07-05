@@ -1,5 +1,9 @@
 # Mini Agent CLI
 
+<p align="center">
+  <img src="./assets/mini-agent-cli-lgo.png" alt="Mini Agent CLI demo" width="700"/>
+</p>
+
 A lightweight CLI AI agent that can read files, write files, and list directories — powered by **Google Gemini** via a simple tool-calling loop.
 
 Built as a hands-on practice project for understanding how AI agents work under the hood.
