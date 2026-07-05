@@ -40,7 +40,7 @@ async function runAgent(userInput) {
     { role: "user", content: userInput },
   ];
 
-  console.log("[Agent Thinking...]");
+  console.log("\x1b[41m [Agent Thinking...] \x1b[0m");
   const response = await askLLM(messages);
 
   if (response.startsWith("TOOL")) {
@@ -55,8 +55,8 @@ async function runAgent(userInput) {
       return `Unknown tool "${toolName}"`;
     }
 
-    console.log(`[Reason: ${reason}]`);
-    console.log(`[Choosing tool: ${toolName}]`);
+    console.log(`\x1b[42m [Reason: ${reason}] \x1b[0m`);
+    console.log(`\x1b[43m [Choosing tool: ${toolName}] \x1b[0m`);
 
     const result = tool.func(...Object.values(args));
 
