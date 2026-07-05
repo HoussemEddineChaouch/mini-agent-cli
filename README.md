@@ -8,8 +8,9 @@ Built as a hands-on practice project for understanding how AI agents work under 
 
 ## Features
 
-- Interactive CLI chat loop
+- Interactive CLI chat loop with **colored output**
 - Tool-calling system (read, write, list files)
+- Agent reasoning display — shows _why_ a tool was chosen
 - Multi-turn conversation with tool result injection
 - Powered by `gemini-2.5-flash`
 
@@ -19,12 +20,14 @@ Built as a hands-on practice project for understanding how AI agents work under 
 
 ```
 mini-agent-cli/
-├── agent.js       # Core agent loop (tool detection + LLM calls)
-├── llm.js         # Gemini API wrapper
-├── tools.js       # Tool registry (metadata + functions)
-├── functions.js   # Actual tool implementations (fs operations)
-├── index.js       # CLI entry point (readline interface)
-├── .env.example   # Environment variable template
+├── src/
+│   ├── agent.js       # Core agent loop (JSON tool detection + LLM calls)
+│   ├── llm.js         # Gemini API wrapper
+│   ├── tools.js       # Tool registry (metadata + functions)
+│   ├── functions.js   # Actual tool implementations (fs operations)
+│   └── index.js       # CLI entry point (colored readline interface)
+├── .env.example       # Environment variable template
+├── CHANGELOG.md
 └── package.json
 ```
 
@@ -62,7 +65,7 @@ GEMINI_API_KEY=your_api_key_here
 ### 4. Run the agent
 
 ```bash
-node index.js
+node src/index.js
 ```
 
 ---
@@ -71,24 +74,37 @@ node index.js
 
 1. User types a message in the CLI
 2. The agent sends it to Gemini with a system prompt listing available tools
-3. If Gemini responds with `TOOL:toolName:argument`, the agent:
-   - Executes the tool function
-   - Sends the result back to Gemini
-   - Returns Gemini's final answer
-4. Otherwise, the response is returned directly
+   If Gemini decides a tool is needed, it responds with a JSON tool call:
+
+```
+TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content."}
+```
+
+4. The agent parses the JSON, logs the **reason** and **chosen tool**, executes it, and sends the result back to Gemini
+5. Gemini returns a final natural-language answer
 
 ```
 User input
-    │
-    ▼
+│
+▼
 Gemini (with tool context)
-    │
-    ├─ TOOL:readFile:./notes.txt ──► run tool ──► send result back ──► Gemini ──► final answer
-    │
-    └─ Normal response ──► final answer
+│
+├─ TOOL {"name":"readFile","args":{"path":"./notes.txt"}}-{"Reason":"..."}
+│       └──► parse JSON ──► run tool ──► send result ──► Gemini ──► final answer
+│
+└─ Normal response ──► final answer
 ```
 
 ---
+
+**Colored CLI output:**
+
+| Color     | Meaning                                   |
+| --------- | ----------------------------------------- |
+| 🔴 Red    | Your input prompt (`You >`)               |
+| 🔵 Blue   | Agent response (`Agent >`)                |
+| 🟡 Yellow | Chosen tool name                          |
+| 🟢 Green  | Agent reasoning (why it picked that tool) |
 
 ## Available Tools
 
