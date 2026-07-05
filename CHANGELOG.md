@@ -6,9 +6,33 @@ This project uses [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.0] - 2026-07-05
+
+### Added
+
+- Colored CLI output — red for user input, blue for agent response, yellow for tool name, green for reasoning
+- Agent thinking indicator shown while waiting for Gemini response
+- Logo CLI in README header
+
+### Changed
+
+- Tool-calling protocol upgraded from string-based to JSON-based
+  - Old: `TOOL:toolName:argument`
+  - New: `TOOL {"name":"toolName","args":{...}}-{"Reason":"..."}`
+- Agent now logs the reason Gemini chose a tool before executing it
+- Tool prompt generation extracted into a clean `toolDescriptions` builder
+- `writeFile` encoding explicitly set to `utf8`
+- Files moved into `src/` directory
+- README updated to reflect all v1.1.0 changes
+
+### Fixed
+
+- Parsing now correctly handles multiple JSON objects in a single TOOL response
+
 ## [1.0.0] - 2026-06-30
 
 ### Added
+
 - Interactive CLI chat loop via `readline`
 - `readFile` tool — reads any file from disk
 - `writeFile` tool — writes/overwrites a file on disk
