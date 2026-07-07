@@ -44,8 +44,27 @@ async function runAgent(userInput) {
   const response = await askLLM(messages);
 
   if (response.startsWith("TOOL")) {
-    const jsonPart = response.replace("TOOL", "").trim().split("-");
-    [toolPart, reasonPart] = jsonPart;
+    // const jsonPart = response.replace("TOOL", "").trim().split("-");
+    // [toolPart, reasonPart] = jsonPart;
+    let toolPart;
+    let reasonPart;
+    let braceCount = 0;
+    const text = response.replace("TOOL", "").trim();
+
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === "{") {
+        braceCount++;
+      } 
+      else if (text[i] === "}") {
+        braceCount--;
+        if (braceCount === 0 && text[i + 1] === "-") {
+          toolPart = text.substring(0, i + 1);
+          reasonPart = text.substring(i + 2);
+          break;
+        }        
+      }
+    }
+
     const { name: toolName, args } = JSON.parse(toolPart);
     const { Reason: reason } = JSON.parse(reasonPart);
 
