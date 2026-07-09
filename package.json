@@ -12,6 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^2.10.0",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "html-to-text": "^10.0.0"
   }
 }
