@@ -10,6 +10,12 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+rl.on("SIGINT", () => {
+  console.log(`\n${colorBlue}Agent >${reset}`, "Goodbye! 👋");
+  rl.close();
+  process.exit(0);
+});
+
 function ask() {
   rl.question(`${colorRed}You >${reset} `, async (input) => {
     const res = await runAgent(input);
