@@ -13,6 +13,10 @@ const toolDescriptions = Object.entries(tools)
   .join("\n");
 
 async function runAgent(userInput) {
+  if (!userInput.trim()) {
+    return "Please Type Something...";
+  }
+
   let messages = [
     {
       role: "system",
@@ -54,14 +58,13 @@ async function runAgent(userInput) {
     for (let i = 0; i < text.length; i++) {
       if (text[i] === "{") {
         braceCount++;
-      } 
-      else if (text[i] === "}") {
+      } else if (text[i] === "}") {
         braceCount--;
         if (braceCount === 0 && text[i + 1] === "-") {
           toolPart = text.substring(0, i + 1);
           reasonPart = text.substring(i + 2);
           break;
-        }        
+        }
       }
     }
 
