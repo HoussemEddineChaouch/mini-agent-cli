@@ -6,21 +6,25 @@ const ai = new GoogleGenAI({
 });
 
 async function askLLM(messages) {
-  const contents = messages.map((msg) => ({
-    role: msg.role === "assistant" ? "model" : "user",
-    parts: [
-      {
-        text: msg.content,
-      },
-    ],
-  }));
+  try {
+    const contents = messages.map((msg) => ({
+      role: msg.role === "assistant" ? "model" : "user",
+      parts: [
+        {
+          text: msg.content,
+        },
+      ],
+    }));
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents,
-  });
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents,
+    });
 
-  return response.text;
+    return response.text;
+  } catch (error) {
+    return "Something went wrong, please try again.";
+  }
 }
 
 module.exports = { askLLM };
