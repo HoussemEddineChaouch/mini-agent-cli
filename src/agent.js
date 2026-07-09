@@ -80,7 +80,13 @@ async function runAgent(userInput) {
     console.log(`\x1b[42m [Reason: ${reason}] \x1b[0m`);
     console.log(`\x1b[43m [Choosing tool: ${toolName}] \x1b[0m`);
 
-    const result = tool.func(...Object.values(args));
+    let result;
+
+    try {
+      result = tool.func(...Object.values(args));
+    } catch (error) {
+      result = `Tool ${toolName} failed: ${error.message}`;
+    }
 
     const final = await askLLM([
       ...messages,
