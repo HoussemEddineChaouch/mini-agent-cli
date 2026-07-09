@@ -6,6 +6,24 @@ This project uses [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.1] - 2026-07-09
+
+### Fixed
+
+- Parser no longer breaks when filenames contain dashes (#1)
+- Added error handling for failed Gemini API calls (#2)
+- Agent no longer crashes when readFile is called on a non-existent file (#4)
+- Empty user input no longer sends a request to Gemini (#5)
+- Agent now exits cleanly on Ctrl+C with a goodbye message (#6)
+
+### Contributors
+
+Thanks to everyone who contributed to this release 🙌
+
+- @bhalsingh28
+- @abusnitsky
+- @Prasiddhi26
+
 ## [1.1.0] - 2026-07-05
 
 ### Added
