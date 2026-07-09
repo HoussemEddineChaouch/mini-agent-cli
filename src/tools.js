@@ -37,6 +37,17 @@ const tools = {
     },
     func: funcs.listDir,
   },
+  fetchWebText: {
+    description:
+      "Fetches the text content from a given URL, excluding HTML tags.",
+    parameters: {
+      url: {
+        type: "STRING",
+        description: "The URL of the webpage to fetch text from.",
+      },
+    },
+    func: funcs.fetchWebText,
+  },
 };
 
 module.exports = { tools };
