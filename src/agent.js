@@ -83,7 +83,7 @@ async function runAgent(userInput) {
     let result;
 
     try {
-      result = await tool.func(...Object.values(args));
+      result = tool.func(...Object.values(args));
     } catch (error) {
       result = `Tool ${toolName} failed: ${error.message}`;
     }
