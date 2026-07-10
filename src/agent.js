@@ -37,6 +37,7 @@ async function runAgent(userInput) {
       TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content."}
       TOOL {"name":"readFile","args":{"path":"package.json"}}-{"Reason":"user wants file conetnt."}
       TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user want to write in teh file."}
+      TOOL {"name":"fetchURL","args":{"url":"https://example.com"}}-{"Reason":"user asks about website content."}
 
       If no tool is needed, answer normally.
       `,
