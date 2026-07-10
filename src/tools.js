@@ -37,16 +37,16 @@ const tools = {
     },
     func: funcs.listDir,
   },
-  fetchWebText: {
+  fetchURL: {
     description:
-      "Fetches the text content from a given URL, excluding HTML tags.",
+      "Fetches content from a URL and returns plain text.",
     parameters: {
       url: {
         type: "STRING",
         description: "The URL of the webpage to fetch text from.",
       },
     },
-    func: funcs.fetchWebText,
+    func: funcs.fetchURL,
   },
 };
 
