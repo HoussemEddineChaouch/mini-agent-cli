@@ -117,7 +117,7 @@ Gemini (with tool context)
 | `readFile`  | Reads the contents of a file from disk |
 | `writeFile` | Writes or overwrites a file on disk    |
 | `listDir`   | Lists all files in a directory         |
-
+| `fetchURL`  | Fetches the content of a URL and returns it as plain text |
 ---
 
 ## Dependencies
