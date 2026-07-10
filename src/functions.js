@@ -1,10 +1,21 @@
 const fs = require("fs");
-const { convert } = require("html-to-text");
-const { execSync } = require("child_process");
-
 function readFile(path) {
+  let filePath = path;
+  if (!fs.existsSync(filePath) && pathModule.extname(filePath) === "") {
+    const extensions = [".js", ".ts", ".json", ".jsx", ".tsx"];
+
+    for (const ext of extensions) {
+      const candidate = filePath + ext;
+
+      if (fs.existsSync(candidate)) {
+        filePath = candidate;
+        break;
+      }
+    }
+  }
+
   try {
-    return fs.readFileSync(path, "utf-8");
+    return fs.readFileSync(filePath, "utf-8");
   } catch (error) {
     if (error.code === "ENOENT") {
       return `File "${path}" does not exist.`;
