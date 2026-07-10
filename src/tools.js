@@ -37,6 +37,17 @@ const tools = {
     },
     func: funcs.listDir,
   },
+  fetchURL: {
+    description:
+      "Fetches content from a URL and returns plain text.",
+    parameters: {
+      url: {
+        type: "STRING",
+        description: "The URL of the webpage to fetch text from.",
+      },
+    },
+    func: funcs.fetchURL,
+  },
 };
 
 module.exports = { tools };

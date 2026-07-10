@@ -1,4 +1,6 @@
 const fs = require("fs");
+const { convert } = require("html-to-text");
+const { execSync } = require("child_process");
 
 function readFile(path) {
   try {
@@ -45,4 +47,32 @@ function listDir(path = ".") {
   }
 }
 
-module.exports = { readFile, writeFile, listDir };
+function fetchURL(url) {
+  try {
+    if (!url || typeof url !== "string") {
+      return 'Invalid "url" argument.';
+    }
+
+    const escapedUrl = url.replace(/"/g, '\"');
+    const body = execSync(
+      'curl -L --max-time 10 -A "mini-agent-cli/1.0" "' + escapedUrl + '"',
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
+    );
+
+    const text = convert(body, {
+      wordwrap: 120,
+      selectors: [
+        { selector: "script", format: "skip" },
+        { selector: "style", format: "skip" },
+        { selector: "noscript", format: "skip" }
+      ],
+      baseElements: { selectors: ["body"] }
+    });
+
+    return text.replace(/\n{3,}/g, "\n\n").trim().slice(0, 20000);
+  } catch (error) {
+    return "Failed to fetch URL.";
+  }
+}
+
+module.exports = { readFile, writeFile, listDir, fetchURL };
