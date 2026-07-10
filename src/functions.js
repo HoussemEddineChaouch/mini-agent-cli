@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { convert } = require("html-to-text");
+const { execSync } = require("child_process");
 
 function readFile(path) {
   try {
@@ -46,56 +47,32 @@ function listDir(path = ".") {
   }
 }
 
-async function fetchWebText(url) {
+function fetchURL(url) {
   try {
     if (!url || typeof url !== "string") {
       return 'Invalid "url" argument.';
     }
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    const response = await fetch(url, {
-      signal: controller.signal,
-      redirect: "follow",
-      headers: {
-        "User-Agent": "mini-agent-cli/1.0",
-      },
-    });
-
-    if (!response.ok) {
-      return `Request failed with status ${response.status}.`;
-    }
-
-    const contentType = response.headers.get("content-type") || "";
-    const body = await response.text();
-
-    if (!contentType.includes("text/html")) {
-      return body.slice(0, 20000);
-    }
+    const escapedUrl = url.replace(/"/g, '\"');
+    const body = execSync(
+      'curl -L --max-time 10 -A "mini-agent-cli/1.0" "' + escapedUrl + '"',
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
+    );
 
     const text = convert(body, {
       wordwrap: 120,
       selectors: [
         { selector: "script", format: "skip" },
         { selector: "style", format: "skip" },
-        { selector: "noscript", format: "skip" },
+        { selector: "noscript", format: "skip" }
       ],
-      baseElements: { selectors: ["body"] },
+      baseElements: { selectors: ["body"] }
     });
 
-    // Cleans noisy spacing after conversion.
-    const cleaned = text.replace(/\n{3,}/g, "\n\n").trim();
-    
-    return cleaned.slice(0, 20000);
+    return text.replace(/\n{3,}/g, "\n\n").trim().slice(0, 20000);
   } catch (error) {
-    if (error.name === "AbortError") {
-      return "Request timed out.";
-    }
-    return `Failed to fetch URL: ${error.message}`;
-  } finally {
-    clearTimeout(timeoutId);
+    return "Failed to fetch URL.";
   }
 }
 
-module.exports = { readFile, writeFile, listDir, fetchWebText };
+module.exports = { readFile, writeFile, listDir, fetchURL };
