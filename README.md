@@ -125,6 +125,7 @@ flowchart TD
 | --------------- | -------------------------------------- |
 | `@google/genai` | Google Gemini API client               |
 | `dotenv`        | Load environment variables from `.env` |
+| `html-to-text`  | Convert HTML responses to plain text   |
 
 ---
 
