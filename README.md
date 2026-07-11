@@ -87,16 +87,15 @@ TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content
 4. The agent parses the JSON, logs the **reason** and **chosen tool**, executes it, and sends the result back to Gemini
 5. Gemini returns a final natural-language answer
 
-```
-User input
-│
-▼
-Gemini (with tool context)
-│
-├─ TOOL {"name":"readFile","args":{"path":"./notes.txt"}}-{"Reason":"..."}
-│       └──► parse JSON ──► run tool ──► send result ──► Gemini ──► final answer
-│
-└─ Normal response ──► final answer
+```mermaid
+flowchart TD
+    A[User input] --> B{Gemini decides}
+    B -->|Tool needed| C[TOOL call in JSON]
+    C --> D[Parse JSON]
+    D --> E[Run tool]
+    E --> F[Send result to Gemini]
+    F --> G[Final natural-language answer]
+    B -->|No tool needed| G
 ```
 
 ---
