@@ -1,6 +1,11 @@
 const fs = require("fs");
+const pathModule = require("path");
+const { convert } = require("html-to-text");
+const { execSync } = require("child_process");
+
 function readFile(path) {
   let filePath = path;
+
   if (!fs.existsSync(filePath) && pathModule.extname(filePath) === "") {
     const extensions = [".js", ".ts", ".json", ".jsx", ".tsx"];
 
@@ -64,7 +69,7 @@ function fetchURL(url) {
       return 'Invalid "url" argument.';
     }
 
-    const escapedUrl = url.replace(/"/g, '\"');
+    const escapedUrl = url.replace(/"/g, '\\"');
     const body = execSync(
       'curl -L --max-time 10 -A "mini-agent-cli/1.0" "' + escapedUrl + '"',
       { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
@@ -75,9 +80,9 @@ function fetchURL(url) {
       selectors: [
         { selector: "script", format: "skip" },
         { selector: "style", format: "skip" },
-        { selector: "noscript", format: "skip" }
+        { selector: "noscript", format: "skip" },
       ],
-      baseElements: { selectors: ["body"] }
+      baseElements: { selectors: ["body"] },
     });
 
     return text.replace(/\n{3,}/g, "\n\n").trim().slice(0, 20000);
