@@ -72,7 +72,7 @@ function fetchURL(url) {
     const escapedUrl = url.replace(/"/g, '\\"');
     const body = execSync(
       'curl -L --max-time 10 -A "mini-agent-cli/1.0" "' + escapedUrl + '"',
-      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
     );
 
     const text = convert(body, {
@@ -85,7 +85,10 @@ function fetchURL(url) {
       baseElements: { selectors: ["body"] },
     });
 
-    return text.replace(/\n{3,}/g, "\n\n").trim().slice(0, 20000);
+    return text
+      .replace(/\n{3,}/g, "\n\n")
+      .trim()
+      .slice(0, 20000);
   } catch (error) {
     return "Failed to fetch URL.";
   }
