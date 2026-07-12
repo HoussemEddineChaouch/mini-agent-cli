@@ -13,7 +13,7 @@ Built as a hands-on practice project for understanding how AI agents work under 
 ## Features
 
 - Interactive CLI chat loop with **colored output**
-- Tool-calling system
+- Tool-calling system (read, write, list files, run commands)
 - Agent reasoning display — shows _why_ a tool was chosen
 - Multi-turn conversation with tool result injection
 - Powered by `gemini-2.5-flash`
