@@ -47,6 +47,18 @@ function writeFile(path, content) {
   }
 }
 
+function deleteFile(path) {
+  try {
+    fs.unlinkSync(path);
+    return "File deleted successfully";
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return `File "${path}" does not exist.`;
+    }
+    throw error;
+  }
+}
+
 function listDir(path = ".") {
   try {
     return fs.readdirSync(path);
@@ -94,4 +106,4 @@ function fetchURL(url) {
   }
 }
 
-module.exports = { readFile, writeFile, listDir, fetchURL };
+module.exports = { readFile, writeFile, listDir, fetchURL, deleteFile };
