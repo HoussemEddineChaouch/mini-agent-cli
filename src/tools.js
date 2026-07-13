@@ -48,6 +48,16 @@ const tools = {
     },
     func: funcs.fetchURL,
   },
+  runCommand: {
+    description: "Executes a shell command and returns the output.",
+    parameters: {
+      command: {
+        type: "STRING",
+        description: "The shell command to execute",
+      },
+    },
+    func: funcs.runCommand,
+  },
 };
 
 module.exports = { tools };

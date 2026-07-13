@@ -38,6 +38,7 @@ async function runAgent(userInput) {
       TOOL {"name":"readFile","args":{"path":"package.json"}}-{"Reason":"user wants file conetnt."}
       TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user want to write in teh file."}
       TOOL {"name":"fetchURL","args":{"url":"https://example.com"}}-{"Reason":"user asks about website content."}
+      TOOL {"name":"runCommand","args":{"command":"git status"}}-{"Reason":"user wants to inspect the repository state."}
 
       If no tool is needed, answer normally.
       `,
