@@ -135,6 +135,14 @@ flowchart TD
 
 Contributions, ideas, and bug reports are welcome! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
+## Contributors
+
+Thanks to everyone who has contributed to this project 🙌
+
+<a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=HoussemEddineChaouch/mini-agent-cli" />
+</a>
+
 ---
 
 ## License
