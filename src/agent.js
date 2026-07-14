@@ -60,7 +60,7 @@ function parseToolResponse(response) {
   return { toolName, args, reason };
 }
 
-async function runAgent(userInput) {
+async function runAgent(userInput, { model, onToken } = {}) {
   if (!userInput.trim()) {
     return "Please Type Something...";
   }
@@ -74,10 +74,27 @@ async function runAgent(userInput) {
   ];
 
   console.log("\x1b[41m [Agent Thinking...] \x1b[0m");
-  const response = await askLLM(messages);
 
-  if (response.startsWith("TOOL")) {
-    const { toolName, args, reason } = parseToolResponse(response);
+  let fullResponse;
+  let forwardedToUser = false;
+
+  if (onToken) {
+    let collected = "";
+    fullResponse = await askLLM(messages, { model, onToken: (token) => {
+      collected += token;
+      if (forwardedToUser) {
+        onToken(token);
+      } else if (!collected.startsWith("TOOL") && !"TOOL".startsWith(collected)) {
+        forwardedToUser = true;
+        onToken(collected);
+      }
+    }});
+  } else {
+    fullResponse = await askLLM(messages, { model });
+  }
+
+  if (fullResponse.startsWith("TOOL")) {
+    const { toolName, args, reason } = parseToolResponse(fullResponse);
 
     const tool = tools[toolName];
 
@@ -98,14 +115,14 @@ async function runAgent(userInput) {
 
     const final = await askLLM([
       ...messages,
-      { role: "assistant", content: response },
+      { role: "assistant", content: fullResponse },
       { role: "user", content: `Tool result: ${result}` },
-    ]);
+    ], { model, onToken });
 
     return final;
   }
 
-  return response;
+  return fullResponse;
 }
 
 module.exports = runAgent;
