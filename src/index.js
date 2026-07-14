@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 });
 
 rl.on("SIGINT", () => {
-  console.log(`\n${colorBlue}Agent >${reset}`, "Goodbye! 👋");
+  console.log(`\n${colorBlue}Agent >${reset}`, "Goodbye! (ʘ‿ʘ)╯");
   rl.close();
   process.exit(0);
 });
