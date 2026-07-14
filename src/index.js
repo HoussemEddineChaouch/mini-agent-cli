@@ -1,11 +1,41 @@
 const readline = require("readline");
 const runAgent = require("./agent.js");
+const { tools } = require("./tools.js");
 
 const colorRed = "\x1b[31m";
 const reset = "\x1b[0m";
 const colorBlue = "\x1b[34m";
 
 const conversation = [];
+
+const args = process.argv.slice(2);
+const wantsHelp = args.includes("--help") || args.includes("-h");
+
+function printHelp() {
+  const toolsSummary = Object.entries(tools)
+    .map(([name, details]) => `  - ${name}: ${details.description}`)
+    .join("\n");
+
+  console.log(`
+    Mini Agent CLI
+
+    Usage:
+      node src/index.js
+      node src/index.js --help
+      node src/index.js -h
+
+    Description:
+      Interactive CLI AI agent with tool-calling support.
+
+    Available tools:
+    ${toolsSummary}
+    `.trim());
+}
+
+if (wantsHelp) {
+  printHelp();
+  process.exit(0);
+}
 
 const rl = readline.createInterface({
   input: process.stdin,
