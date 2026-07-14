@@ -4,7 +4,7 @@
   <img src="./assets/mini-agent-cli-lgo.png" alt="Mini Agent CLI demo" width="700"/>
 </p>
 
-A lightweight CLI AI agent that can read files, write files, and list directories — powered by **Google Gemini** via a simple tool-calling loop.
+A lightweight CLI AI agent that can read files, write files, list directories and run commands — powered by **Google Gemini** via a simple tool-calling loop.
 
 Built as a hands-on practice project for understanding how AI agents work under the hood.
 
@@ -13,7 +13,7 @@ Built as a hands-on practice project for understanding how AI agents work under 
 ## Features
 
 - Interactive CLI chat loop with **colored output**
-- Tool-calling system (read, write, list files)
+- Tool-calling system (read, write, list files, run commands)
 - Agent reasoning display — shows _why_ a tool was chosen
 - Multi-turn conversation with tool result injection
 - Powered by `gemini-2.5-flash`
@@ -117,6 +117,7 @@ flowchart TD
 | `writeFile` | Writes or overwrites a file on disk    |
 | `listDir`   | Lists all files in a directory         |
 | `fetchURL`  | Fetches the content of a URL and returns it as plain text |
+| `runCommand`| Executes a shell command and returns the output |
 ---
 
 ## Dependencies

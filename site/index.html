@@ -17,6 +17,10 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -61,7 +65,7 @@
             class="btn-primary"
             href="https://github.com/HoussemEddineChaouch/mini-agent-cli"
             target="_blank"
-            >⭐ Star on GitHub</a
+            ><i class="fa-solid fa-star"></i> Star on GitHub</a
           >
           <a class="btn-ghost" href="#install">Get started →</a>
           <span class="badge">v1.1.1 stable</span>
@@ -152,7 +156,7 @@
       <div class="tools-grid">
         <div class="tool-card">
           <div class="tool-header">
-            <span class="tool-icon">📄</span
+            <span class="tool-icon"><i class="fa-solid fa-file-lines"></i></span
             ><span class="tool-name">readFile</span>
           </div>
           <div class="tool-sig">readFile(path: string) → string</div>
@@ -163,7 +167,7 @@
         </div>
         <div class="tool-card">
           <div class="tool-header">
-            <span class="tool-icon">✏️</span
+            <span class="tool-icon"><i class="fa-solid fa-pen"></i></span
             ><span class="tool-name">writeFile</span>
           </div>
           <div class="tool-sig">writeFile(path, content: string)</div>
@@ -174,7 +178,8 @@
         </div>
         <div class="tool-card">
           <div class="tool-header">
-            <span class="tool-icon">📁</span
+            <span class="tool-icon"
+              ><i class="fa-solid fa-folder-open"></i></span
             ><span class="tool-name">listDir</span>
           </div>
           <div class="tool-sig">listDir(path?: string) → string</div>
@@ -185,7 +190,7 @@
         </div>
         <div class="tool-card">
           <div class="tool-header">
-            <span class="tool-icon">🌐</span
+            <span class="tool-icon"><i class="fa-solid fa-globe"></i></span
             ><span class="tool-name">fetchURL</span>
           </div>
           <div class="tool-sig">fetchURL(url: string) → string</div>
@@ -209,7 +214,9 @@
       </div>
       <div class="flow-branch">
         <div class="flow-branch-card">
-          <div class="flow-branch-label tool">🛠 tool needed</div>
+          <div class="flow-branch-label tool">
+            <i class="fa-solid fa-screwdriver-wrench"></i> tool needed
+          </div>
           <div class="flow-branch-steps">
             <div class="flow-step-item">Parse JSON tool call + reason</div>
             <div class="flow-step-item">Display reason &amp; chosen tool</div>
@@ -219,7 +226,9 @@
           </div>
         </div>
         <div class="flow-branch-card">
-          <div class="flow-branch-label direct">💬 no tool needed</div>
+          <div class="flow-branch-label direct">
+            <i class="fa-solid fa-comment"></i> no tool needed
+          </div>
           <div class="flow-branch-steps">
             <div class="flow-step-item">Gemini answers directly</div>
             <div class="flow-step-item done">Return final answer ✓</div>
@@ -375,7 +384,7 @@
       <div class="section-eye">contribute</div>
       <div class="contribute-grid">
         <div class="contribute-card">
-          <div class="contribute-icon">🐛</div>
+          <div class="contribute-icon"><i class="fa-solid fa-bug"></i></div>
           <div class="contribute-title">Report a bug</div>
           <div class="contribute-desc">
             Found something broken? Open an issue with steps to reproduce and
@@ -383,7 +392,7 @@
           </div>
         </div>
         <div class="contribute-card">
-          <div class="contribute-icon">🛠</div>
+          <div class="contribute-icon"><i class="fa-solid fa-wrench"></i></div>
           <div class="contribute-title">Add a new tool</div>
           <div class="contribute-desc">
             runCommand, deleteFile, searchWeb — all open in the issues. Pick one
@@ -391,7 +400,7 @@
           </div>
         </div>
         <div class="contribute-card">
-          <div class="contribute-icon">📖</div>
+          <div class="contribute-icon"><i class="fa-solid fa-book"></i></div>
           <div class="contribute-title">Improve docs</div>
           <div class="contribute-desc">
             README updates, CHANGELOG entries, or this landing page — all
@@ -399,7 +408,9 @@
           </div>
         </div>
         <div class="contribute-card">
-          <div class="contribute-icon">✅</div>
+          <div class="contribute-icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
           <div class="contribute-title">Write tests</div>
           <div class="contribute-desc">
             Zero tests right now. Add basic ones using node:test — no extra
