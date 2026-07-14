@@ -26,6 +26,16 @@ const tools = {
     },
     func: funcs.writeFile,
   },
+  deleteFile: {
+    description: "Deletes a file from the disk.",
+    parameters: {
+      path: {
+        type: "STRING",
+        description: "The path of the file in the disk, e.g. ~/home/resume.txt",
+      },
+    },
+    func: funcs.deleteFile,
+  },
   listDir: {
     description: "Lists all the files contained in a specific directory.",
     parameters: {
