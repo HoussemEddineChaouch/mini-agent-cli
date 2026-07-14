@@ -17,6 +17,19 @@ Open an issue using the **Bug Report** template. Include:
 
 Open an issue using the **Feature Request** template. Describe the idea and why it would be useful.
 
+### Before Opening a PR
+
+Before you start working on anything, please make sure 
+the issue is assigned to you first.
+
+1. Find an open issue you want to work on
+2. Comment on it: "I'd like to work on this"
+3. Wait for a maintainer to assign it to you
+4. Only then fork the repo and open a PR
+
+> ⚠️ PRs opened without a linked assigned issue may be 
+> closed without review.
+
 ### Submitting a Pull Request
 
 1. Fork the repo
