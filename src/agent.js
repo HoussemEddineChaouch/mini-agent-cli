@@ -60,21 +60,20 @@ function parseToolResponse(response) {
   return { toolName, args, reason };
 }
 
-async function runAgent(userInput) {
+async function runAgent(userInput, messages = []) {
   if (!userInput.trim()) {
     return "Please Type Something...";
   }
 
-  let messages = [
-    {
-      role: "system",
-      content: SYSTEM_PROMPT,
-    },
-    { role: "user", content: userInput },
-  ];
+  if (messages.length === 0) {
+    messages.push({ role: "system", content: SYSTEM_PROMPT });
+  }
+  
+  messages.push({ role: "user", content: userInput });
 
   console.log("\x1b[41m [Agent Thinking...] \x1b[0m");
   const response = await askLLM(messages);
+  messages.push({ role: "assistant", content: response });
 
   if (response.startsWith("TOOL")) {
     const { toolName, args, reason } = parseToolResponse(response);
@@ -96,12 +95,10 @@ async function runAgent(userInput) {
       result = `Tool ${toolName} failed: ${error.message}`;
     }
 
-    const final = await askLLM([
-      ...messages,
-      { role: "assistant", content: response },
-      { role: "user", content: `Tool result: ${result}` },
-    ]);
+    messages.push({ role: "user", content: `Tool result: ${result}` });
 
+    const final = await askLLM(messages);
+    messages.push({ role: "assistant", content: final });
     return final;
   }
 

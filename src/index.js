@@ -5,6 +5,8 @@ const colorRed = "\x1b[31m";
 const reset = "\x1b[0m";
 const colorBlue = "\x1b[34m";
 
+const conversation = [];
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -18,7 +20,7 @@ rl.on("SIGINT", () => {
 
 function ask() {
   rl.question(`${colorRed}You >${reset} `, async (input) => {
-    const res = await runAgent(input);
+    const res = await runAgent(input, conversation);
     console.log(`${colorBlue}Agent >${reset}`, res);
     ask();
   });
