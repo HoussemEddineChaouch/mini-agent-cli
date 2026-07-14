@@ -105,27 +105,35 @@ function fetchURL(url) {
     return "Failed to fetch URL.";
   }
 }
+
 function runCommand(command) {
   if (!command || typeof command !== "string") {
     return 'Invalid "command" argument.';
   }
+
   try {
     const output = execSync(command, {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "pipe"],
       timeout: 10000,
     });
+
     return output.trim().slice(0, 20000) || "Command completed with no output.";
   } catch (error) {
     if (typeof error.status === "number") {
       const stderr = error.stderr?.toString().trim();
       const stdout = error.stdout?.toString().trim();
+
       if (stderr) return `Command failed: ${stderr}`;
       if (stdout) return stdout;
+
       return `Command failed with exit code ${error.status}.`;
     }
+
     if (error.code === "ETIMEDOUT") return "Command timed out.";
+
     throw error;
   }
 }
-module.exports = { readFile, writeFile, listDir, fetchURL, deleteFile, runCommand };
+
+module.exports = { readFile, writeFile, deleteFile, listDir, fetchURL, runCommand };
