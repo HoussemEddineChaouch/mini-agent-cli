@@ -12,6 +12,54 @@ const toolDescriptions = Object.entries(tools)
   })
   .join("\n");
 
+const SYSTEM_PROMPT = `
+  You are a CLI AI agent assistance.
+  You can use tools when needed to answer user questions.
+
+  You can use ONLY the following tools.
+  ${toolDescriptions}
+
+  Rules:
+  1. NEVER invent tool names.
+  2. Use ONLY the tool names exactly as written.
+  3. If a tool is needed, output ONLY:
+  TOOL {"name":"toolName","args":{...}}-{"Reason":"...."}
+
+  Examples:
+  TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content."}
+  TOOL {"name":"readFile","args":{"path":"package.json"}}-{"Reason":"user wants file conetnt."}
+  TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user want to write in teh file."}
+  TOOL {"name":"deleteFile","args":{"path":"test.txt"}}-{"Reason":"user wants to delete the file."}
+  TOOL {"name":"fetchURL","args":{"url":"https://example.com"}}-{"Reason":"user asks about website content."}
+  TOOL {"name":"runCommand","args":{"command":"git status"}}-{"Reason":"user wants to inspect the repository state."}
+
+  If no tool is needed, answer normally.
+  `;
+
+function parseToolResponse(response) {
+  let toolPart;
+  let reasonPart;
+  let braceCount = 0;
+  const text = response.replace("TOOL", "").trim();
+
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === "{") {
+      braceCount++;
+    } else if (text[i] === "}") {
+      braceCount--;
+      if (braceCount === 0 && text[i + 1] === "-") {
+        toolPart = text.substring(0, i + 1);
+        reasonPart = text.substring(i + 2);
+        break;
+      }
+    }
+  }
+
+  const { name: toolName, args } = JSON.parse(toolPart);
+  const { Reason: reason } = JSON.parse(reasonPart);
+  return { toolName, args, reason };
+}
+
 async function runAgent(userInput) {
   if (!userInput.trim()) {
     return "Please Type Something...";
@@ -20,29 +68,7 @@ async function runAgent(userInput) {
   let messages = [
     {
       role: "system",
-      content: `
-      Your are a CLI AI agent assistance.
-      You can use tools when needed to answer user questions.
-
-      You can use ONLY the following tools.
-      ${toolDescriptions}
-    
-      Rules:
-      1. NEVER invent tool names.
-      2. Use ONLY the tool names exactly as written.
-      3. If a tool is needed, output ONLY:
-      TOOL {"name":"toolName","args":{...}}-{"Reason":"...."}
-
-      Examples:
-      TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content."}
-      TOOL {"name":"readFile","args":{"path":"package.json"}}-{"Reason":"user wants file conetnt."}
-      TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user want to write in teh file."}
-      TOOL {"name":"deleteFile","args":{"path":"test.txt"}}-{"Reason":"user wants to delete the file."}
-      TOOL {"name":"fetchURL","args":{"url":"https://example.com"}}-{"Reason":"user asks about website content."}
-      TOOL {"name":"runCommand","args":{"command":"git status"}}-{"Reason":"user wants to inspect the repository state."}
-
-      If no tool is needed, answer normally.
-      `,
+      content: SYSTEM_PROMPT,
     },
     { role: "user", content: userInput },
   ];
@@ -51,28 +77,7 @@ async function runAgent(userInput) {
   const response = await askLLM(messages);
 
   if (response.startsWith("TOOL")) {
-    // const jsonPart = response.replace("TOOL", "").trim().split("-");
-    // [toolPart, reasonPart] = jsonPart;
-    let toolPart;
-    let reasonPart;
-    let braceCount = 0;
-    const text = response.replace("TOOL", "").trim();
-
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] === "{") {
-        braceCount++;
-      } else if (text[i] === "}") {
-        braceCount--;
-        if (braceCount === 0 && text[i + 1] === "-") {
-          toolPart = text.substring(0, i + 1);
-          reasonPart = text.substring(i + 2);
-          break;
-        }
-      }
-    }
-
-    const { name: toolName, args } = JSON.parse(toolPart);
-    const { Reason: reason } = JSON.parse(reasonPart);
+    const { toolName, args, reason } = parseToolResponse(response);
 
     const tool = tools[toolName];
 
