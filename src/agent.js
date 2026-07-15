@@ -65,13 +65,11 @@ async function runAgent(userInput, { model, onToken } = {}) {
     return "Please Type Something...";
   }
 
-  let messages = [
-    {
-      role: "system",
-      content: SYSTEM_PROMPT,
-    },
-    { role: "user", content: userInput },
-  ];
+  if (messages.length === 0) {
+    messages.push({ role: "system", content: SYSTEM_PROMPT });
+  }
+  
+  messages.push({ role: "user", content: userInput });
 
   console.log("\x1b[41m [Agent Thinking...] \x1b[0m");
 
@@ -119,6 +117,8 @@ async function runAgent(userInput, { model, onToken } = {}) {
       { role: "user", content: `Tool result: ${result}` },
     ], { model, onToken });
 
+    const final = await askLLM(messages);
+    messages.push({ role: "assistant", content: final });
     return final;
   }
 
