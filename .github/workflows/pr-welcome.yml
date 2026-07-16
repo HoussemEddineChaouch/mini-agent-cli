@@ -1,0 +1,26 @@
+name: PR Welcome
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `👋 Thanks for opening this PR @${context.payload.sender.login}!
+
+            Before we review, please make sure:
+            - [ ] PR description follows the repo template
+            - [ ] Your branch is up to date with \`main\`
+            - [ ] You were assigned to the related issue before opening this PR
+
+            A maintainer will review it soon. 🙌`
+            })

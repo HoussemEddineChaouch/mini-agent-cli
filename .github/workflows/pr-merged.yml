@@ -1,0 +1,24 @@
+name: PR Merged
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🎉 Your PR has been merged @${context.payload.sender.login}!
+
+            Thank you for contributing to mini-agent-cli — you're now part of the project 🐙
+
+            Feel free to pick up another issue anytime!`
+            })
