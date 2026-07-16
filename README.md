@@ -16,6 +16,7 @@ Built as a hands-on practice project for understanding how AI agents work under 
 - Tool-calling system (read, write, list files, run commands)
 - Agent reasoning display — shows _why_ a tool was chosen
 - Multi-turn conversation with tool result injection
+- Conversation history across turns for context-aware follow-up answers.
 - Powered by `gemini-2.5-flash`
 
 ---
