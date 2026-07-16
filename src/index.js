@@ -16,16 +16,22 @@ function printHelp() {
     .map(([name, details]) => `  - ${name}: ${details.description}`)
     .join("\n");
 
+  // TODO: adjust usage before publishing to npm.
   console.log(`
     Mini Agent CLI
 
     Usage:
-      node src/index.js
-      node src/index.js --help
-      node src/index.js -h
+      node src/index.js [options]
+
+    Options:
+      -h, --help   Show this help message and exit.
 
     Description:
       Interactive CLI AI agent with tool-calling support.
+
+    Interactive usage:
+      Type a prompt and press Enter.
+      Press Ctrl+C to exit.
 
     Available tools:
     ${toolsSummary}
