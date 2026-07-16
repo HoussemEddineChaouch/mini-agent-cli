@@ -5,6 +5,7 @@ const colorRed = "\x1b[31m";
 const reset = "\x1b[0m";
 const colorBlue = "\x1b[34m";
 
+const currentModel = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const conversation = [];
 
 const rl = readline.createInterface({
@@ -20,8 +21,23 @@ rl.on("SIGINT", () => {
 
 function ask() {
   rl.question(`${colorRed}You >${reset} `, async (input) => {
-    const res = await runAgent(input, conversation);
-    console.log(`${colorBlue}Agent >${reset}`, res);
+    let didStream = false;
+    const onToken = (token) => {
+      if (!didStream) {
+        process.stdout.write(`${colorBlue}Agent >${reset} `);
+        didStream = true;
+      }
+      process.stdout.write(token);
+    };
+
+    const res = await runAgent(input, conversation, { model: currentModel, onToken });
+
+    if (didStream) {
+      process.stdout.write("\n");
+    } else {
+      console.log(`${colorBlue}Agent >${reset}`, res);
+    }
+
     ask();
   });
 }
