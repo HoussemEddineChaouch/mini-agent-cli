@@ -60,7 +60,7 @@ function parseToolResponse(response) {
   return { toolName, args, reason };
 }
 
-async function runAgent(userInput, messages = []) {
+async function runAgent(userInput, messages = [], { model } = {}) {
   if (!userInput.trim()) {
     return "Please Type Something...";
   }
@@ -72,7 +72,7 @@ async function runAgent(userInput, messages = []) {
   messages.push({ role: "user", content: userInput });
 
   console.log("\x1b[41m [Agent Thinking...] \x1b[0m");
-  const response = await askLLM(messages);
+  const response = await askLLM(messages, { model });
   messages.push({ role: "assistant", content: response });
 
   if (response.startsWith("TOOL")) {
@@ -97,7 +97,7 @@ async function runAgent(userInput, messages = []) {
 
     messages.push({ role: "user", content: `Tool result: ${result}` });
 
-    const final = await askLLM(messages);
+    const final = await askLLM(messages, { model });
     messages.push({ role: "assistant", content: final });
     return final;
   }
