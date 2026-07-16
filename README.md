@@ -39,8 +39,6 @@ Built as a hands-on practice project for understanding how AI agents work under 
 
 ---
 
----
-
 ## Features
 
 - Interactive CLI chat loop with **colored output**
