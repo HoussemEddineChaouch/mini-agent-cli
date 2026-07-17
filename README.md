@@ -1,12 +1,41 @@
-# Mini Agent CLI
-
 <p align="center">
-  <img src="./assets/mini-agent-cli-lgo.png" alt="Mini Agent CLI demo" width="700"/>
+  <img src="/site/assets/main-logo-square.png" alt="Mini Agent CLI" width="200"/>
 </p>
 
-A lightweight CLI AI agent that can read files, write files, list directories and run commands — powered by **Google Gemini** via a simple tool-calling loop.
+<h1 align="center">mini-agent-cli</h1>
 
+<p align="center">
+  <code>> think. act. observe. answer.</code>
+</p>
+
+<p align="center">
+  <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases">
+    <img src="https://img.shields.io/github/v/release/HoussemEddineChaouch/mini-agent-cli?color=22c55e&label=version&style=flat-square" alt="version"/>
+  </a>
+  <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/HoussemEddineChaouch/mini-agent-cli?color=8b5cf6&style=flat-square" alt="license"/>
+  </a>
+  <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/stargazers">
+    <img src="https://img.shields.io/github/stars/HoussemEddineChaouch/mini-agent-cli?color=fcd34d&style=flat-square" alt="stars"/>
+  </a>
+  <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/HoussemEddineChaouch/mini-agent-cli?color=f472b6&style=flat-square" alt="contributors"/>
+  </a>
+  <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/issues">
+    <img src="https://img.shields.io/github/issues/HoussemEddineChaouch/mini-agent-cli?color=60a5fa&style=flat-square" alt="issues"/>
+  </a>
+  <a href="https://mini-agent-cli.vercel.app">
+    <img src="https://img.shields.io/badge/site-live-22c55e?style=flat-square" alt="site"/>
+  </a>
+</p>
+
+<p align="center">
+A lightweight CLI AI agent that can read files, write files, list directories and run commands — powered by <strong>Google Gemini</strong> via a simple tool-calling loop.
+</p>
+
+<p align="center">
 Built as a hands-on practice project for understanding how AI agents work under the hood.
+</p>
 
 ---
 
