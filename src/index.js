@@ -12,30 +12,32 @@ const args = process.argv.slice(2);
 const wantsHelp = args.includes("--help") || args.includes("-h");
 
 function printHelp() {
+  const section = (title) => `${colorBlue}${title}${reset}`;
+  const toolLabel = (name) => `[${name}]`;
+
   const toolsSummary = Object.entries(tools)
-    .map(([name, details]) => `  - ${name}: ${details.description}`)
+    .map(([name, details]) => `  ${toolLabel(name).padEnd(16, " ")} ${details.description}`)
     .join("\n");
 
-  // TODO: adjust usage before publishing to npm.
-  console.log(`
-    Mini Agent CLI
+  const lines = [
+    `${colorBlue}Mini Agent CLI${reset}`,
+    "",
+    section("Usage:"),
+    "  node src/index.js [options]",
+    "",
+    section("Options:"),
+    "  -h, --help    Show this help message and exit.",
+    "",
+    section("Interactive usage:"),
+    `  ${colorRed}You >${reset} Ask a question or request a task`,
+    `  ${colorBlue}Agent >${reset} Responds directly or uses tools when needed`,
+    "  Press Ctrl+C to exit.",
+    "",
+    section("Available tools:"),
+    toolsSummary,
+  ];
 
-    Usage:
-      node src/index.js [options]
-
-    Options:
-      -h, --help   Show this help message and exit.
-
-    Description:
-      Interactive CLI AI agent with tool-calling support.
-
-    Interactive usage:
-      Type a prompt and press Enter.
-      Press Ctrl+C to exit.
-
-    Available tools:
-    ${toolsSummary}
-    `.trim());
+  console.log(lines.join("\n"));
 }
 
 if (wantsHelp) {
