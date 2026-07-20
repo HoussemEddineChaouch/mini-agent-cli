@@ -1,11 +1,20 @@
 const readline = require("readline");
 const runAgent = require("./agent.js");
+const { printHelp } = require("./help.js");
 
 const colorRed = "\x1b[31m";
 const reset = "\x1b[0m";
 const colorBlue = "\x1b[34m";
 
 const conversation = [];
+
+const args = process.argv.slice(2);
+const wantsHelp = args.includes("--help") || args.includes("-h");
+
+if (wantsHelp) {
+  printHelp();
+  process.exit(0);
+}
 
 const rl = readline.createInterface({
   input: process.stdin,
