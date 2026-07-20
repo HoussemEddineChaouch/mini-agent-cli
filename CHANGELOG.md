@@ -6,6 +6,40 @@ This project uses [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.2.0] - 2026-07-20
+
+### Added
+
+- `deleteFile` tool — deletes a file from disk (#30)
+- `runCommand` tool — executes shell commands and returns output (#31)
+- `fetchURL` tool — fetches web page content as plain text (#19)
+- `Conversation history` — agent remembers previous messages across turns (#34)
+- `--help` / `-h` flag — displays usage info and available tools (#40)
+- File extension inference — readFile now infers .js, .ts, .json etc. (#20)
+- GEMINI_API_KEY validation — clear error message on missing key (#18)
+
+### Changed
+
+- Refactored system prompt and tool response parser out of runAgent (#33)
+- README How It Works section replaced with Mermaid flowchart (#27)
+- Landing page icons replaced with FontAwesome (#29)
+- README updated to document conversation history (#37)
+
+### Fixed
+
+- Restored missing imports after merge conflict resolution (#24)
+
+### Contributors
+
+Thanks to everyone who contributed to this release 🙌
+
+- @abusnitsky
+- @rubysnewjourney
+- @priyanshu-sahani-10
+- @tamish560
+- @Dhairya0707
+- @Swetha-1029
+
 ## [1.1.1] - 2026-07-09
 
 ### Fixed

@@ -46,6 +46,7 @@ Built as a hands-on practice project for understanding how AI agents work under 
 - Agent reasoning display — shows _why_ a tool was chosen
 - Multi-turn conversation with tool result injection
 - Conversation history across turns for context-aware follow-up answers.
+- `--help` / `-h` flag — display usage info and available tools without starting the agent
 - Powered by `gemini-2.5-flash`
 
 ---
@@ -102,6 +103,16 @@ GEMINI_API_KEY=your_api_key_here
 node src/index.js
 ```
 
+### Show help
+
+```bash
+node src/index.js --help
+# or
+node src/index.js -h
+```
+
+Displays all available tools, usage instructions, and options without starting the agent.
+
 ---
 
 ## How It Works
@@ -141,14 +152,15 @@ flowchart TD
 
 ## Available Tools
 
-| Tool        | Description                            |
-| ----------- | -------------------------------------- |
-| `readFile`  | Reads the contents of a file from disk |
-| `writeFile` | Writes or overwrites a file on disk    |
-| `deleteFile`| Deletes a file from disk               |
-| `listDir`   | Lists all files in a directory         |
-| `fetchURL`  | Fetches the content of a URL and returns it as plain text |
-| `runCommand`| Executes a shell command and returns the output |
+| Tool         | Description                                               |
+| ------------ | --------------------------------------------------------- |
+| `readFile`   | Reads the contents of a file from disk                    |
+| `writeFile`  | Writes or overwrites a file on disk                       |
+| `deleteFile` | Deletes a file from disk                                  |
+| `listDir`    | Lists all files in a directory                            |
+| `fetchURL`   | Fetches the content of a URL and returns it as plain text |
+| `runCommand` | Executes a shell command and returns the output           |
+
 ---
 
 ## Dependencies
