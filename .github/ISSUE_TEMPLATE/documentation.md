@@ -1,7 +1,7 @@
 ---
 name: Documentation
 about: Report missing, incorrect, or unclear documentation
-title: "docs: "
+title: "[DOCS]: "
 labels: documentation
 assignees: ""
 ---
