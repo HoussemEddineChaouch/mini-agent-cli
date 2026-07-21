@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   welcome:
+    if: github.event.issue.user.login != 'HoussemEddineChaouch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v8

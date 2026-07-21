@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   welcome:
+    if: github.event.issue.user.login != 'HoussemEddineChaouch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v8
@@ -18,14 +19,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `👋 Thanks for opening this issue @${context.payload.sender.login}!
-
-            A maintainer will review it soon.
-
-            If you'd like to work on this yourself:
-            1. Comment \`I'd like to work on this\`
-            2. Wait to be assigned
-            3. Then fork and open a PR
-
-            See our [contributing guide](https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/.github/CONTRIBUTING.md) for details. 🙌`
+              body: `👋 Thanks for opening this issue @${context.payload.sender.login}! ...`
             })
