@@ -68,6 +68,17 @@ const tools = {
     },
     func: funcs.runCommand,
   },
+  searchWeb: {
+    description: "Searches the internet for a given query and returns search results.",
+    parameters: {
+      query: {
+        type: "STRING",
+        description: "The search query to look up on the web.",
+      },
+    },
+    func: funcs.searchWeb,
+  },
 };
 
 module.exports = { tools };
+

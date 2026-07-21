@@ -32,6 +32,7 @@ const SYSTEM_PROMPT = `
   TOOL {"name":"deleteFile","args":{"path":"test.txt"}}-{"Reason":"user wants to delete the file."}
   TOOL {"name":"fetchURL","args":{"url":"https://example.com"}}-{"Reason":"user asks about website content."}
   TOOL {"name":"runCommand","args":{"command":"git status"}}-{"Reason":"user wants to inspect the repository state."}
+  TOOL {"name":"searchWeb","args":{"query":"latest version of Node.js"}}-{"Reason":"user asks about current events or live details."}
 
   If no tool is needed, answer normally.
   `;
