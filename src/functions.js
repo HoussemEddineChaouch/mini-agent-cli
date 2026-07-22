@@ -106,6 +106,38 @@ function fetchURL(url) {
   }
 }
 
+function searchWeb(query) {
+  try {
+    if (!query || typeof query !== "string") {
+      return 'Invalid "query" argument.';
+    }
+
+    const escapedQuery = encodeURIComponent(query);
+    const url = `https://search.yahoo.com/search?q=${escapedQuery}`;
+    const body = execSync(
+      `curl -L --max-time 10 -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" "${url}"`,
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
+    );
+
+    const text = convert(body, {
+      wordwrap: 120,
+      selectors: [
+        { selector: "script", format: "skip" },
+        { selector: "style", format: "skip" },
+        { selector: "noscript", format: "skip" },
+      ],
+      baseElements: { selectors: ["body"] },
+    });
+
+    return text
+      .replace(/\n{3,}/g, "\n\n")
+      .trim()
+      .slice(0, 20000);
+  } catch (error) {
+    return "Failed to perform web search.";
+  }
+}
+
 function runCommand(command) {
   if (!command || typeof command !== "string") {
     return 'Invalid "command" argument.';
@@ -136,4 +168,5 @@ function runCommand(command) {
   }
 }
 
-module.exports = { readFile, writeFile, deleteFile, listDir, fetchURL, runCommand };
+module.exports = { readFile, writeFile, deleteFile, listDir, fetchURL, runCommand, searchWeb };
+
