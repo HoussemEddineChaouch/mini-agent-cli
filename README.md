@@ -156,6 +156,7 @@ flowchart TD
 | ------------ | --------------------------------------------------------- |
 | `readFile`   | Reads the contents of a file from disk                    |
 | `writeFile`  | Writes or overwrites a file on disk                       |
+| `appendFile` | Appends content to a file on disk.                        |
 | `deleteFile` | Deletes a file from disk                                  |
 | `listDir`    | Lists all files in a directory                            |
 | `fetchURL`   | Fetches the content of a URL and returns it as plain text |
