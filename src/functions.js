@@ -49,12 +49,6 @@ function writeFile(path, content) {
 
 function appendFile(path, content) {
   try {
-
-    //Prevent creating a new file if it doesn't exist
-    if (!fs.existsSync(path)) {
-      return `File "${path}" does not exist.`;
-    }
-
     fs.appendFileSync(path, content, "utf8");
     return "Content appended successfully to the file";
   } catch (error) {
