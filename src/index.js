@@ -1,6 +1,7 @@
 const readline = require("readline");
 const runAgent = require("./agent.js");
 const { printHelp } = require("./help.js");
+const { runCommand } = require("./commands.js");
 
 const colorRed = "\x1b[31m";
 const reset = "\x1b[0m";
@@ -29,6 +30,14 @@ rl.on("SIGINT", () => {
 
 function ask() {
   rl.question(`${colorRed}You >${reset} `, async (input) => {
+    const commandResult = runCommand(input, { conversation });
+
+    if (commandResult.handled) {
+      console.log(`${colorBlue}Agent >${reset}`, commandResult.message);
+      ask();
+      return;
+    }
+
     const res = await runAgent(input, conversation);
     console.log(`${colorBlue}Agent >${reset}`, res);
     ask();

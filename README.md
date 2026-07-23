@@ -47,6 +47,7 @@ Built as a hands-on practice project for understanding how AI agents work under 
 - Multi-turn conversation with tool result injection
 - Conversation history across turns for context-aware follow-up answers.
 - `--help` / `-h` flag — display usage info and available tools without starting the agent
+- Slash command system (for example /clear)
 - Powered by `gemini-2.5-flash`
 
 ---
@@ -60,6 +61,7 @@ mini-agent-cli/
 │   ├── llm.js         # Gemini API wrapper
 │   ├── tools.js       # Tool registry (metadata + functions)
 │   ├── functions.js   # Actual tool implementations (fs operations)
+│   ├── commands.js    # Slash command registry + dispatcher (e.g. /clear)
 │   └── index.js       # CLI entry point (colored readline interface)
 ├── .env.example       # Environment variable template
 ├── CHANGELOG.md
