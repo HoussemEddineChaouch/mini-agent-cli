@@ -853,6 +853,14 @@ footer {
   .hero-title {
     font-size: 2rem;
   }
+  .flex-row{
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .flow-node{
+    white-space: normal;
+    flex-shrink: 1;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   * {
