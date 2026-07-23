@@ -136,4 +136,11 @@ function runCommand(command) {
   }
 }
 
-module.exports = { readFile, writeFile, deleteFile, listDir, fetchURL, runCommand };
+module.exports = {
+  readFile,
+  writeFile,
+  deleteFile,
+  listDir,
+  fetchURL,
+  runCommand,
+};
