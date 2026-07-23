@@ -10,17 +10,19 @@ permissions:
 
 jobs:
   merged:
-    if: github.event.pull_request.merged == true
+    if: |
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.user.login != 'HoussemEddineChaouch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v8
         with:
           script: |
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `🎉 Your PR has been merged @${context.payload.sender.login}!
+              body: `🎉 Your PR has been merged @${context.payload.pull_request.user.login}!
 
             Thank you for contributing to mini-agent-cli — you're now part of the project 🐙
 
