@@ -26,6 +26,20 @@ const tools = {
     },
     func: funcs.writeFile,
   },
+  appendFile: {
+  description: "Appends content to the end of an existing file on the disk.",
+  parameters: {
+    path: {
+      type: "STRING",
+      description: "The path of the file in the disk, e.g. ~/home/resume.txt",
+    },
+    content: {
+      type: "STRING",
+      description: "The content to append to the file, e.g. Hello, World!",
+    },
+  },
+  func: funcs.appendFile,
+},
   deleteFile: {
     description: "Deletes a file from the disk.",
     parameters: {

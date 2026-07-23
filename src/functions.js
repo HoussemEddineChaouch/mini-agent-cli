@@ -47,6 +47,23 @@ function writeFile(path, content) {
   }
 }
 
+function appendFile(path, content) {
+  try {
+    fs.appendFileSync(path, content, "utf8");
+    return "Content appended successfully to the file";
+  } catch (error) {
+    if (error.code === "EISDIR") {
+      return `"${path}" is a directory, not a file.`;
+    }
+
+    if (error.code === "ENOENT") {
+      return `Content could not be appended to file "${path}" because its directory does not exist.`;
+    }
+
+    throw error;
+  }
+}
+
 function deleteFile(path) {
   try {
     fs.unlinkSync(path);
@@ -136,11 +153,4 @@ function runCommand(command) {
   }
 }
 
-module.exports = {
-  readFile,
-  writeFile,
-  deleteFile,
-  listDir,
-  fetchURL,
-  runCommand,
-};
+module.exports = { readFile, writeFile, appendFile, deleteFile, listDir, fetchURL, runCommand };

@@ -29,6 +29,7 @@ const SYSTEM_PROMPT = `
   TOOL {"name":"listDir","args":{"path":"."}}-{"Reason":"user wants folder content."}
   TOOL {"name":"readFile","args":{"path":"package.json"}}-{"Reason":"user wants file conetnt."}
   TOOL {"name":"writeFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user want to write in teh file."}
+  TOOL {"name":"appendFile","args":{"path":"test.txt","content":"hello"}}-{"Reason":"user wants to append content to the file."}
   TOOL {"name":"deleteFile","args":{"path":"test.txt"}}-{"Reason":"user wants to delete the file."}
   TOOL {"name":"fetchURL","args":{"url":"https://example.com"}}-{"Reason":"user asks about website content."}
   TOOL {"name":"runCommand","args":{"command":"git status"}}-{"Reason":"user wants to inspect the repository state."}
