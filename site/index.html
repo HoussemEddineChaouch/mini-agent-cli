@@ -1,489 +1,440 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mini-agent-cli — think. act. observe. answer.</title>
-    <link rel="icon" type="image/png" href="./assets/main-logo-png.png" />
-    <meta
-      name="description"
-      content="A lightweight CLI AI agent powered by Google Gemini. Built in vanilla Node.js."
-    />
-    <meta property="og:title" content="mini-agent-cli" />
-    <meta property="og:description" content="A hungry agent for your files." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- NAV -->
-    <nav>
-      <div class="nav-brand">
-        <img src="./assets/mono-logo.png" alt="logo" class="nav-logo" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mini-agent-cli — think. act. observe. answer.</title>
+  <link rel="icon" type="image/png" href="./assets/main-logo-png.png" />
+  <meta name="description" content="A lightweight CLI AI agent powered by Google Gemini. Built in vanilla Node.js." />
+  <meta property="og:title" content="mini-agent-cli" />
+  <meta property="og:description" content="A hungry agent for your files." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">
+      <img src="./assets/mono-logo.png" alt="logo" class="nav-logo" />
+      mini-<span class="p">agent</span>-<span class="g">cli</span>
+    </div>
+    <div class="nav-links">
+      <a href="#demo">demo</a>
+      <a href="#tools">tools</a>
+      <a href="#install">install</a>
+      <a href="#contribute">contribute</a>
+      <a href="#contributors">contributors</a>
+      <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli" class="nav-gh" target="_blank">GitHub →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">open source · v1.2.0 · MIT license</div>
+      <h1 class="hero-title">
+        mini-<span class="p">agent</span>-<span class="g">cli</span>
+      </h1>
+      <p class="tagline">
+        &gt; think. <span class="g">act.</span> observe. answer.
+      </p>
+      <p class="hero-desc">
+        A lightweight AI agent that runs in your terminal. Powered by Google
+        Gemini. Built from scratch in vanilla Node.js — no frameworks, no
+        magic — to understand how tool-calling really works under the hood.
+      </p>
+      <div class="cta-row">
+        <a class="btn-primary" href="https://github.com/HoussemEddineChaouch/mini-agent-cli" target="_blank"><i
+            class="fa-solid fa-star"></i> Star on GitHub</a>
+        <a class="btn-ghost" href="#install">Get started →</a>
+        <span class="badge">v1.2.0 stable</span>
+      </div>
+    </div>
+    <div class="hero-mascot">
+      <img class="mascot-img" src="./assets/main-logo-png.png" alt="mini-agent-cli pixel art octopus mascot"
+        onerror="this.style.display = 'none'" />
+    </div>
+  </section>
+
+  <!-- LIVE DEMO -->
+  <section class="section" id="demo">
+    <div class="section-eye">live demo</div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="term-title">mini-agent-cli — bash — node src/index.js</span>
+      </div>
+      <div class="term-body">
+        <div>
+          <span class="t-dir">~/projects/mini-agent-cli</span>
+          <span style="color: var(--muted)">on</span>
+          <span style="color: var(--purple-l)">main</span>
+        </div>
+        <div>
+          <span class="t-prompt">You &gt;</span>
+          <span class="t-input">what files are in the current directory?</span>
+        </div>
+        <div><span class="t-thinking">[Agent Thinking...]</span></div>
+        <div>
+          <span class="t-reason">[Reason: user is asking for files in the current
+            directory.]</span>
+        </div>
+        <div><span class="t-tool">[Choosing tool: listDir]</span></div>
+        <div>
+          <span class="t-agent">Agent &gt;</span>
+          <span class="t-input">Here are the files in your project:</span>
+        </div>
+        <div class="t-out">
+          .env · .gitignore · CHANGELOG.md · LICENSE · README.md ·
+          package.json · src/
+        </div>
+        <hr class="t-sep" />
+        <div>
+          <span class="t-prompt">You &gt;</span>
+          <span class="t-input">show me the current working directory</span>
+        </div>
+        <div><span class="t-thinking">[Agent Thinking...]</span></div>
+        <div>
+          <span class="t-reason">[Reason: user wants to know the current working directory.]</span>
+        </div>
+        <div><span class="t-tool">[Choosing tool: runCommand]</span></div>
+        <div>
+          <span class="t-agent">Agent &gt;</span>
+          <span class="t-input">Current working directory: ~/projects/mini-agent-cli</span>
+        </div>
+        <hr class="t-sep" />
+        <div>
+          <span class="t-prompt">You &gt;</span> <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="section" id="tools">
+    <div class="section-eye">available tools</div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-file-lines"></i></span><span class="tool-name">readFile</span>
+        </div>
+        <div class="tool-sig">readFile(path: string) → string</div>
+        <div class="tool-desc">
+          Reads any file from disk and returns its full contents.
+          Automatically infers file extension if omitted.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-pen"></i></span><span class="tool-name">writeFile</span>
+        </div>
+        <div class="tool-sig">writeFile(path, content: string)</div>
+        <div class="tool-desc">
+          Writes or overwrites a file on disk with the given content in UTF-8
+          encoding.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-folder-open"></i></span><span class="tool-name">listDir</span>
+        </div>
+        <div class="tool-sig">listDir(path?: string) → string</div>
+        <div class="tool-desc">
+          Lists all files and folders in a directory. Defaults to the current
+          working directory.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-globe"></i></span><span class="tool-name">fetchURL</span>
+        </div>
+        <div class="tool-sig">fetchURL(url: string) → string</div>
+        <div class="tool-desc">
+          Fetches a web page and returns its content as plain text. Lets the
+          agent read live documentation or APIs.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+          <span class="tool-name">appendFile</span>
+        </div>
+        <div class="tool-sig">appendFile(path, content: string)</div>
+        <div class="tool-desc">
+          Appends content to the end of an existing file without overwriting it.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-trash"></i></span>
+          <span class="tool-name">deleteFile</span>
+        </div>
+        <div class="tool-sig">deleteFile(path: string)</div>
+        <div class="tool-desc">
+          Deletes a file from disk using the provided file path.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon"><i class="fa-solid fa-terminal"></i></span>
+          <span class="tool-name">runCommand</span>
+        </div>
+        <div class="tool-sig">runCommand(command: string)</div>
+        <div class="tool-desc">
+          Executes a shell command and returns its output to the agent.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="section-eye">how it works</div>
+    <div class="flow-row">
+      <div class="flow-node accent">You type a message</div>
+      <div class="flow-connector">
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-node">Gemini + tool context</div>
+      <div class="flow-connector">
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-node">Gemini decides</div>
+    </div>
+    <div class="flow-branch">
+      <div class="flow-branch-card">
+        <div class="flow-branch-label tool">
+          <i class="fa-solid fa-screwdriver-wrench"></i> tool needed
+        </div>
+        <div class="flow-branch-steps">
+          <div class="flow-step-item">Parse JSON tool call + reason</div>
+          <div class="flow-step-item">Display reason &amp; chosen tool</div>
+          <div class="flow-step-item">Execute the tool function</div>
+          <div class="flow-step-item">Send result back to Gemini</div>
+          <div class="flow-step-item done">Return final answer ✓</div>
+        </div>
+      </div>
+      <div class="flow-branch-card">
+        <div class="flow-branch-label direct">
+          <i class="fa-solid fa-comment"></i> no tool needed
+        </div>
+        <div class="flow-branch-steps">
+          <div class="flow-step-item">Gemini answers directly</div>
+          <div class="flow-step-item done">Return final answer ✓</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section">
+    <div class="section-eye">by the numbers</div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num purple" id="stat-stars">–</div>
+        <div class="stat-label">GitHub stars</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num green" id="stat-contrib">–</div>
+        <div class="stat-label">contributors</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num yellow">7</div>
+        <div class="stat-label">tools built</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num pink" id="stat-issues">–</div>
+        <div class="stat-label">issues closed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section class="section" id="install">
+    <div class="section-eye">get started</div>
+    <div class="install-card">
+      <div class="install-tabs">
+        <button class="install-tab active" onclick="switchTab(this, 'tab-npm')">
+          npm
+        </button>
+        <button class="install-tab" onclick="switchTab(this, 'tab-env')">
+          .env setup
+        </button>
+      </div>
+      <div class="install-body" id="tab-npm">
+        <button class="copy-btn" onclick="copyInstall(this)">copy</button>
+        <div><span class="comment"># 1. clone the repo</span></div>
+        <div>
+          <span class="cmd">git clone</span>
+          <span class="arg">https://github.com/HoussemEddineChaouch/mini-agent-cli.git</span>
+        </div>
+        <div>
+          <span class="cmd">cd</span> <span class="arg">mini-agent-cli</span>
+        </div>
+        <br />
+        <div><span class="comment"># 2. install dependencies</span></div>
+        <div><span class="cmd">npm install</span></div>
+        <br />
+        <div><span class="comment"># 3. run the agent</span></div>
+        <div>
+          <span class="cmd">node</span> <span class="arg">src/index.js</span>
+        </div>
+      </div>
+      <div class="install-body" id="tab-env" style="display: none">
+        <div><span class="comment"># copy the example env file</span></div>
+        <div>
+          <span class="cmd">cp</span>
+          <span class="arg">.env.example .env</span>
+        </div>
+        <br />
+        <div><span class="comment"># open .env and add your key</span></div>
+        <div>
+          <span class="val">GEMINI_API_KEY</span><span class="cmd">=your_key_here</span>
+        </div>
+        <br />
+        <div>
+          <span class="comment"># get a free key at aistudio.google.com/app/apikey</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELEASES -->
+  <section class="section" id="releases">
+    <div class="section-eye">releases</div>
+    <div class="release-list">
+      <div class="release-item latest">
+        <div class="release-left">
+          <span class="release-tag">v1.2.0</span>
+          <span class="release-badge">latest</span>
+          <span class="release-desc">
+            5 new tools, conversation history, --help flag, refactor, and docs
+            improvements
+          </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span class="release-date">Jul 2026</span>
+          <a class="release-link" href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases/tag/v1.2.0"
+            target="_blank">view →</a>
+        </div>
+      </div>
+
+      <div class="release-item">
+        <div class="release-left">
+          <span class="release-tag">v1.1.0</span>
+          <span class="release-desc">JSON tool protocol, colored output, agent reasoning display</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span class="release-date">Jul 2026</span>
+          <a class="release-link" href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases/tag/v1.1.0"
+            target="_blank">view →</a>
+        </div>
+      </div>
+      <div class="release-item">
+        <div class="release-left">
+          <span class="release-tag">v1.0.0</span>
+          <span class="release-desc">Initial release — 3 tools, Gemini integration, string-based
+            protocol</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span class="release-date">Jun 2026</span>
+          <a class="release-link" href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases/tag/v1.0.0"
+            target="_blank">view →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTE -->
+  <section class="section" id="contribute">
+    <div class="section-eye">contribute</div>
+    <div class="contribute-grid">
+      <div class="contribute-card">
+        <div class="contribute-icon"><i class="fa-solid fa-bug"></i></div>
+        <div class="contribute-title">Report a bug</div>
+        <div class="contribute-desc">
+          Found something broken? Open an issue with steps to reproduce and
+          your environment details.
+        </div>
+      </div>
+      <div class="contribute-card">
+        <div class="contribute-icon"><i class="fa-solid fa-wrench"></i></div>
+        <div class="contribute-title">Add a new tool</div>
+        <div class="contribute-desc">
+          runCommand, deleteFile, searchWeb — all open in the issues. Pick one
+          and ship it.
+        </div>
+      </div>
+      <div class="contribute-card">
+        <div class="contribute-icon"><i class="fa-solid fa-book"></i></div>
+        <div class="contribute-title">Improve docs</div>
+        <div class="contribute-desc">
+          README updates, CHANGELOG entries, or this landing page — all
+          labeled good first issue.
+        </div>
+      </div>
+      <div class="contribute-card">
+        <div class="contribute-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="contribute-title">Write tests</div>
+        <div class="contribute-desc">
+          Zero tests right now. Add basic ones using node:test — no extra
+          dependencies needed.
+        </div>
+      </div>
+    </div>
+    <div class="cta-group">
+      <a class="btn-primary"
+        href="https://github.com/HoussemEddineChaouch/mini-agent-cli/issues?q=label%3A%22good+first+issue%22"
+        target="_blank">good first issues</a>
+      <a class="btn-ghost"
+        href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/.github/CONTRIBUTING.md"
+        target="_blank">contributing guide →</a>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTORS -->
+  <section class="section" id="contributors">
+    <div class="section-eye">contributors</div>
+    <p style="font-size: 14px; color: var(--sub); margin-bottom: 1.5rem">
+      Everyone who has shipped code, fixed bugs, or improved docs. Thank you
+      🙌
+    </p>
+    <div class="people-grid" id="contrib-grid">
+      <span id="contrib-loading">loading contributors...</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="foot-brand">
         mini-<span class="p">agent</span>-<span class="g">cli</span>
       </div>
-      <div class="nav-links">
-        <a href="#demo">demo</a>
-        <a href="#tools">tools</a>
-        <a href="#install">install</a>
-        <a href="#contribute">contribute</a>
-        <a href="#contributors">contributors</a>
-        <a
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli"
-          class="nav-gh"
-          target="_blank"
-          >GitHub →</a
-        >
-      </div>
-    </nav>
+      <div class="foot-sub">MIT license · built by @HoussemEddineChaouch</div>
+    </div>
+    <div class="foot-links">
+      <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli" target="_blank">GitHub</a>
+      <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/issues" target="_blank">Issues</a>
+      <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases" target="_blank">Releases</a>
+      <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/CHANGELOG.md"
+        target="_blank">Changelog</a>
+      <a href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/.github/CONTRIBUTING.md"
+        target="_blank">Contributing</a>
+    </div>
+  </footer>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-left">
-        <div class="hero-eyebrow">open source · v1.1.1 · MIT license</div>
-        <h1 class="hero-title">
-          mini-<span class="p">agent</span>-<span class="g">cli</span>
-        </h1>
-        <p class="tagline">
-          &gt; think. <span class="g">act.</span> observe. answer.
-        </p>
-        <p class="hero-desc">
-          A lightweight AI agent that runs in your terminal. Powered by Google
-          Gemini. Built from scratch in vanilla Node.js — no frameworks, no
-          magic — to understand how tool-calling really works under the hood.
-        </p>
-        <div class="cta-row">
-          <a
-            class="btn-primary"
-            href="https://github.com/HoussemEddineChaouch/mini-agent-cli"
-            target="_blank"
-            ><i class="fa-solid fa-star"></i> Star on GitHub</a
-          >
-          <a class="btn-ghost" href="#install">Get started →</a>
-          <span class="badge">v1.2.0 stable</span>
-        </div>
-      </div>
-      <div class="hero-mascot">
-        <img
-          class="mascot-img"
-          src="./assets/main-logo-png.png"
-          alt="mini-agent-cli pixel art octopus mascot"
-          onerror="this.style.display = 'none'"
-        />
-      </div>
-    </section>
+  <script src="main.js"></script>
+</body>
 
-    <!-- LIVE DEMO -->
-    <section class="section" id="demo">
-      <div class="section-eye">live demo</div>
-      <div class="terminal">
-        <div class="term-bar">
-          <div class="dot dot-r"></div>
-          <div class="dot dot-y"></div>
-          <div class="dot dot-g"></div>
-          <span class="term-title"
-            >mini-agent-cli — bash — node src/index.js</span
-          >
-        </div>
-        <div class="term-body">
-          <div>
-            <span class="t-dir">~/projects/mini-agent-cli</span>
-            <span style="color: var(--muted)">on</span>
-            <span style="color: var(--purple-l)">main</span>
-          </div>
-          <div>
-            <span class="t-prompt">You &gt;</span>
-            <span class="t-input"
-              >what files are in the current directory?</span
-            >
-          </div>
-          <div><span class="t-thinking">[Agent Thinking...]</span></div>
-          <div>
-            <span class="t-reason"
-              >[Reason: user is asking for files in the current
-              directory.]</span
-            >
-          </div>
-          <div><span class="t-tool">[Choosing tool: listDir]</span></div>
-          <div>
-            <span class="t-agent">Agent &gt;</span>
-            <span class="t-input">Here are the files in your project:</span>
-          </div>
-          <div class="t-out">
-            .env · .gitignore · CHANGELOG.md · LICENSE · README.md ·
-            package.json · src/
-          </div>
-          <hr class="t-sep" />
-          <div>
-            <span class="t-prompt">You &gt;</span>
-            <span class="t-input"
-              >fetch the content of https://example.com and summarize it</span
-            >
-          </div>
-          <div><span class="t-thinking">[Agent Thinking...]</span></div>
-          <div>
-            <span class="t-reason"
-              >[Reason: user wants to read and summarize a web page.]</span
-            >
-          </div>
-          <div><span class="t-tool">[Choosing tool: fetchURL]</span></div>
-          <div>
-            <span class="t-agent">Agent &gt;</span>
-            <span class="t-input"
-              >The page is a placeholder from IANA showing that example.com is
-              reserved for use in documentation and examples.</span
-            >
-          </div>
-          <hr class="t-sep" />
-          <div>
-            <span class="t-prompt">You &gt;</span> <span class="cursor"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOOLS -->
-    <section class="section" id="tools">
-      <div class="section-eye">available tools</div>
-      <div class="tools-grid">
-        <div class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon"><i class="fa-solid fa-file-lines"></i></span
-            ><span class="tool-name">readFile</span>
-          </div>
-          <div class="tool-sig">readFile(path: string) → string</div>
-          <div class="tool-desc">
-            Reads any file from disk and returns its full contents.
-            Automatically infers file extension if omitted.
-          </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon"><i class="fa-solid fa-pen"></i></span
-            ><span class="tool-name">writeFile</span>
-          </div>
-          <div class="tool-sig">writeFile(path, content: string)</div>
-          <div class="tool-desc">
-            Writes or overwrites a file on disk with the given content in UTF-8
-            encoding.
-          </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon"
-              ><i class="fa-solid fa-folder-open"></i></span
-            ><span class="tool-name">listDir</span>
-          </div>
-          <div class="tool-sig">listDir(path?: string) → string</div>
-          <div class="tool-desc">
-            Lists all files and folders in a directory. Defaults to the current
-            working directory.
-          </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-header">
-            <span class="tool-icon"><i class="fa-solid fa-globe"></i></span
-            ><span class="tool-name">fetchURL</span>
-          </div>
-          <div class="tool-sig">fetchURL(url: string) → string</div>
-          <div class="tool-desc">
-            Fetches a web page and returns its content as plain text. Lets the
-            agent read live documentation or APIs.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section" id="how">
-      <div class="section-eye">how it works</div>
-      <div class="flow-row">
-        <div class="flow-node accent">You type a message</div>
-        <div class="flow-connector"><div class="flow-line"></div></div>
-        <div class="flow-node">Gemini + tool context</div>
-        <div class="flow-connector"><div class="flow-line"></div></div>
-        <div class="flow-node">Gemini decides</div>
-      </div>
-      <div class="flow-branch">
-        <div class="flow-branch-card">
-          <div class="flow-branch-label tool">
-            <i class="fa-solid fa-screwdriver-wrench"></i> tool needed
-          </div>
-          <div class="flow-branch-steps">
-            <div class="flow-step-item">Parse JSON tool call + reason</div>
-            <div class="flow-step-item">Display reason &amp; chosen tool</div>
-            <div class="flow-step-item">Execute the tool function</div>
-            <div class="flow-step-item">Send result back to Gemini</div>
-            <div class="flow-step-item done">Return final answer ✓</div>
-          </div>
-        </div>
-        <div class="flow-branch-card">
-          <div class="flow-branch-label direct">
-            <i class="fa-solid fa-comment"></i> no tool needed
-          </div>
-          <div class="flow-branch-steps">
-            <div class="flow-step-item">Gemini answers directly</div>
-            <div class="flow-step-item done">Return final answer ✓</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STATS -->
-    <section class="section">
-      <div class="section-eye">by the numbers</div>
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-num purple" id="stat-stars">–</div>
-          <div class="stat-label">GitHub stars</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num green" id="stat-contrib">–</div>
-          <div class="stat-label">contributors</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num yellow">4</div>
-          <div class="stat-label">tools built</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num pink" id="stat-issues">–</div>
-          <div class="stat-label">issues closed</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INSTALL -->
-    <section class="section" id="install">
-      <div class="section-eye">get started</div>
-      <div class="install-card">
-        <div class="install-tabs">
-          <button
-            class="install-tab active"
-            onclick="switchTab(this, 'tab-npm')"
-          >
-            npm
-          </button>
-          <button class="install-tab" onclick="switchTab(this, 'tab-env')">
-            .env setup
-          </button>
-        </div>
-        <div class="install-body" id="tab-npm">
-          <button class="copy-btn" onclick="copyInstall(this)">copy</button>
-          <div><span class="comment"># 1. clone the repo</span></div>
-          <div>
-            <span class="cmd">git clone</span>
-            <span class="arg"
-              >https://github.com/HoussemEddineChaouch/mini-agent-cli.git</span
-            >
-          </div>
-          <div>
-            <span class="cmd">cd</span> <span class="arg">mini-agent-cli</span>
-          </div>
-          <br />
-          <div><span class="comment"># 2. install dependencies</span></div>
-          <div><span class="cmd">npm install</span></div>
-          <br />
-          <div><span class="comment"># 3. run the agent</span></div>
-          <div>
-            <span class="cmd">node</span> <span class="arg">src/index.js</span>
-          </div>
-        </div>
-        <div class="install-body" id="tab-env" style="display: none">
-          <div><span class="comment"># copy the example env file</span></div>
-          <div>
-            <span class="cmd">cp</span>
-            <span class="arg">.env.example .env</span>
-          </div>
-          <br />
-          <div><span class="comment"># open .env and add your key</span></div>
-          <div>
-            <span class="val">GEMINI_API_KEY</span
-            ><span class="cmd">=your_key_here</span>
-          </div>
-          <br />
-          <div>
-            <span class="comment"
-              ># get a free key at aistudio.google.com/app/apikey</span
-            >
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RELEASES -->
-    <section class="section" id="releases">
-      <div class="section-eye">releases</div>
-      <div class="release-list">
-        <div class="release-item latest">
-          <div class="release-left">
-            <span class="release-tag">v1.2.0</span>
-            <span class="release-badge">latest</span>
-            <span class="release-desc">
-              5 new tools, conversation history, --help flag, refactor, and docs
-              improvements
-            </span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 12px">
-            <span class="release-date">Jul 2026</span>
-            <a
-              class="release-link"
-              href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases/tag/v1.2.0"
-              target="_blank"
-              >view →</a
-            >
-          </div>
-        </div>
-
-        <div class="release-item">
-          <div class="release-left">
-            <span class="release-tag">v1.1.0</span>
-            <span class="release-desc"
-              >JSON tool protocol, colored output, agent reasoning display</span
-            >
-          </div>
-          <div style="display: flex; align-items: center; gap: 12px">
-            <span class="release-date">Jul 2026</span>
-            <a
-              class="release-link"
-              href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases/tag/v1.1.0"
-              target="_blank"
-              >view →</a
-            >
-          </div>
-        </div>
-        <div class="release-item">
-          <div class="release-left">
-            <span class="release-tag">v1.0.0</span>
-            <span class="release-desc"
-              >Initial release — 3 tools, Gemini integration, string-based
-              protocol</span
-            >
-          </div>
-          <div style="display: flex; align-items: center; gap: 12px">
-            <span class="release-date">Jun 2026</span>
-            <a
-              class="release-link"
-              href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases/tag/v1.0.0"
-              target="_blank"
-              >view →</a
-            >
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTRIBUTE -->
-    <section class="section" id="contribute">
-      <div class="section-eye">contribute</div>
-      <div class="contribute-grid">
-        <div class="contribute-card">
-          <div class="contribute-icon"><i class="fa-solid fa-bug"></i></div>
-          <div class="contribute-title">Report a bug</div>
-          <div class="contribute-desc">
-            Found something broken? Open an issue with steps to reproduce and
-            your environment details.
-          </div>
-        </div>
-        <div class="contribute-card">
-          <div class="contribute-icon"><i class="fa-solid fa-wrench"></i></div>
-          <div class="contribute-title">Add a new tool</div>
-          <div class="contribute-desc">
-            runCommand, deleteFile, searchWeb — all open in the issues. Pick one
-            and ship it.
-          </div>
-        </div>
-        <div class="contribute-card">
-          <div class="contribute-icon"><i class="fa-solid fa-book"></i></div>
-          <div class="contribute-title">Improve docs</div>
-          <div class="contribute-desc">
-            README updates, CHANGELOG entries, or this landing page — all
-            labeled good first issue.
-          </div>
-        </div>
-        <div class="contribute-card">
-          <div class="contribute-icon">
-            <i class="fa-solid fa-circle-check"></i>
-          </div>
-          <div class="contribute-title">Write tests</div>
-          <div class="contribute-desc">
-            Zero tests right now. Add basic ones using node:test — no extra
-            dependencies needed.
-          </div>
-        </div>
-      </div>
-      <div class="cta-group">
-        <a
-          class="btn-primary"
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli/issues?q=label%3A%22good+first+issue%22"
-          target="_blank"
-          >good first issues</a
-        >
-        <a
-          class="btn-ghost"
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/.github/CONTRIBUTING.md"
-          target="_blank"
-          >contributing guide →</a
-        >
-      </div>
-    </section>
-
-    <!-- CONTRIBUTORS -->
-    <section class="section" id="contributors">
-      <div class="section-eye">contributors</div>
-      <p style="font-size: 14px; color: var(--sub); margin-bottom: 1.5rem">
-        Everyone who has shipped code, fixed bugs, or improved docs. Thank you
-        🙌
-      </p>
-      <div class="people-grid" id="contrib-grid">
-        <span id="contrib-loading">loading contributors...</span>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <div>
-        <div class="foot-brand">
-          mini-<span class="p">agent</span>-<span class="g">cli</span>
-        </div>
-        <div class="foot-sub">MIT license · built by @HoussemEddineChaouch</div>
-      </div>
-      <div class="foot-links">
-        <a
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli"
-          target="_blank"
-          >GitHub</a
-        >
-        <a
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli/issues"
-          target="_blank"
-          >Issues</a
-        >
-        <a
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli/releases"
-          target="_blank"
-          >Releases</a
-        >
-        <a
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/CHANGELOG.md"
-          target="_blank"
-          >Changelog</a
-        >
-        <a
-          href="https://github.com/HoussemEddineChaouch/mini-agent-cli/blob/main/.github/CONTRIBUTING.md"
-          target="_blank"
-          >Contributing</a
-        >
-      </div>
-    </footer>
-
-    <script src="main.js"></script>
-  </body>
 </html>
